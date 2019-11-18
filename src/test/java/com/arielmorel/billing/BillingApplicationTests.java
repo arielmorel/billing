@@ -9,6 +9,7 @@ import com.arielmorel.billing.repositories.CustomerRepository;
 import com.arielmorel.billing.repositories.OrderDetailRepository;
 import com.arielmorel.billing.repositories.OrderRepository;
 import com.arielmorel.billing.repositories.ProductRepository;
+import com.arielmorel.billing.services.IOrderService;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -39,7 +40,7 @@ class BillingApplicationTests {
 	@Autowired
 	private OrderDetailRepository orderDetailRepository;
 	@Autowired
-	private OrderRepository orderRepository;
+	private IOrderService orderService;
 	@Autowired
 	private CustomerRepository customerRepository;
 	@Autowired
@@ -123,10 +124,15 @@ class BillingApplicationTests {
 		//		Order
 		System.out.println("customer: "+localCustomer);
 		Order order =new Order();
+		order.setId(1L);
 		order.setCustomer(localCustomer);
 		order.setCreatedAt(new Date());
-		Order orderSaved = orderRepository.save(order);
+		order.setStatus(1);
+		order.setWarranty(30);
+		Order orderSaved=orderService.placeOrder(order);
 		log.info("Order created correctly");
+
+
 
 		//		Order detail 1
 		OrderDetail detail=new OrderDetail();
@@ -137,19 +143,20 @@ class BillingApplicationTests {
 
 		//		Order detail 2
 		OrderDetail detail2=new OrderDetail();
-		detail.setProduct(product2);
-		detail.setUnit(1);
-		detail.setPrice(900f);
-		detail.setOrder(orderSaved);
+		detail2.setProduct(product2);
+		detail2.setUnit(1);
+		detail2.setPrice(900f);
+		detail2.setOrder(orderSaved);
 
-//		OrderDetail invoiceDetailCreate = orderDetailRepository.save(detail);
+		OrderDetail invoiceDetailCreate = orderDetailRepository.save(detail);
+		OrderDetail invoiceDetailCreate2 = orderDetailRepository.save(detail2);
 //		Assert.notNull(invoiceDetailCreate);
 	}
 
 	@Test
 	@org.junit.jupiter.api.Order(7)
 	public void findAllOder(){
-		List<Order> all = orderRepository.findAll();
+		List<Order> all = orderService.findAll();
 		assertThat(all, hasSize(1));
 		System.out.println(all);
 	}

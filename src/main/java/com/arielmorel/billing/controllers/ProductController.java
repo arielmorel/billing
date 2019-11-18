@@ -28,14 +28,12 @@ public class ProductController {
         }
     }
 
-    @PostMapping(value = "/update")
+    @PutMapping(value = "/update")
     public void updateProduct(@RequestBody Product body){
-        if(body!=null) {
             productService.updateProduct(body);
-        }
     }
 
-    @GetMapping(value = "/all")
+    @GetMapping
     public List<Product> getAllProducts(){
         return productService.getAllProducts();
     }

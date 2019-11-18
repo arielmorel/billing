@@ -18,14 +18,26 @@ public class OrderServiceImpl implements IOrderService {
     private OrderRepository repository;
 
     @Override
-    public void placeOrder(Order order) {
+    public Order placeOrder(Order order) {
         if(order!=null) {
-            repository.save(order);
+            return repository.save(order);
         }
+        return null;
     }
 
     @Override
     public List<Order> getOrderByPeriod(Date startDate, Date endDate) {
+        System.out.println(startDate);
+        System.out.println(endDate);
+        if(startDate!=null && endDate!=null) {
+
+            return repository.findByCreatedAtBetween(startDate, endDate);
+        }
+        return null;
+    }
+
+    @Override
+    public List<Order> findAll() {
         return repository.findAll();
     }
 }

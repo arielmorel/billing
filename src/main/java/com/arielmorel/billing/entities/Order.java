@@ -1,12 +1,9 @@
-/**
- * 
- */
+
 package com.arielmorel.billing.entities;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,9 +14,8 @@ import java.util.List;
  *
  */
 @Entity
+@Table(name = "order_table")
 public class Order implements Serializable {
-
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -28,15 +24,18 @@ public class Order implements Serializable {
 
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
-    @NotNull
     private Customer customer;
-
+    @Transient
     @OneToMany(fetch=FetchType.LAZY ,cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_detail_id")
     private List<OrderDetail> orderDetailList;
 
+    @Column(name="warranty")
     private int warranty;
+
+    @Column(name = "comment", length = 150)
     private String comment;
+    @Column(name="status")
     private int status;
 
     @Column(name = "created_at")
@@ -46,11 +45,13 @@ public class Order implements Serializable {
 
 
     public Order() {
+
         orderDetailList =new ArrayList<>();
     }
 
     @PrePersist
     private void prePersist(){
+
         createdAt=new Date();
     }
     public Long getId() {

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.arielmorel.billing.entities;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -129,15 +126,6 @@ public class Product implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Boolean getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
-    }
-
-
     public Boolean getActive() {
         return isActive;
     }
@@ -145,7 +133,6 @@ public class Product implements Serializable {
     public void setActive(Boolean active) {
         isActive = active;
     }
-
 
     @Override
     public int hashCode() {

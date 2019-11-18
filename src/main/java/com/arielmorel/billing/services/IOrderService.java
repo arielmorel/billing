@@ -6,8 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 public interface IOrderService {
-    public void placeOrder(Order order);
-    public List<Order> getOrderByPeriod(Date startDate, Date endDate);
+     Order placeOrder(Order order);
+     List<Order> getOrderByPeriod(Date startDate, Date endDate);
+     List<Order> findAll();
+
+
 
 }
 

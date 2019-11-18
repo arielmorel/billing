@@ -5,7 +5,7 @@ import com.arielmorel.billing.entities.Product;
 import java.util.List;
 
 public interface IProductService {
-    public void createProduct(Product product);
-    public boolean updateProduct(Product product);
-    public List<Product> getAllProducts();
+    void createProduct(Product product);
+    boolean updateProduct(Product product);
+    List<Product> getAllProducts();
 }
