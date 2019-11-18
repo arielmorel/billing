@@ -17,7 +17,7 @@ import java.util.List;
  *
  */
 @Entity
-public class Invoice implements Serializable {
+public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -32,8 +32,8 @@ public class Invoice implements Serializable {
     private Customer customer;
 
     @OneToMany(fetch=FetchType.LAZY ,cascade = CascadeType.ALL)
-    @JoinColumn(name = "invoice_id")
-    private List<InvoiceDetail> invoiceDetailList;
+    @JoinColumn(name = "order_id")
+    private List<OrderDetail> orderDetailList;
 
     private int warranty;
     private String comment;
@@ -45,9 +45,8 @@ public class Invoice implements Serializable {
     private Date createdAt;
 
 
-    public Invoice() {
-        invoiceDetailList=new ArrayList<>();
-        this.warranty=30;
+    public Order() {
+        orderDetailList =new ArrayList<>();
     }
 
     @PrePersist
@@ -94,13 +93,13 @@ public class Invoice implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public void addItemInvoice(InvoiceDetail item) {
-        this.invoiceDetailList.add(item);
+    public void addItemInvoice(OrderDetail item) {
+        this.orderDetailList.add(item);
     }
 
     public Double getTotal(){
         double total=0D;
-        for (InvoiceDetail detail: invoiceDetailList) {
+        for (OrderDetail detail: orderDetailList) {
             total+=detail.getUnit()*detail.getPrice();
         }
         return total;

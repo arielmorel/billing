@@ -7,8 +7,8 @@ import java.io.Serializable;
  * @author Ariel Morel
  */
 @Entity
-@Table(name = "invoice_detail")
-public class InvoiceDetail  implements Serializable {
+@Table(name = "order_detail")
+public class OrderDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -16,9 +16,11 @@ public class InvoiceDetail  implements Serializable {
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Long id;
-    @JoinColumn(name = "invoice_id", referencedColumnName = "id")
+
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     @ManyToOne
-    private Invoice invoice;
+    private Order order;
+
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne
     private Product product;
@@ -33,12 +35,12 @@ public class InvoiceDetail  implements Serializable {
         this.id = id;
     }
 
-    public Invoice getInvoice() {
-        return invoice;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setInvoice(Invoice invoice) {
-        this.invoice = invoice;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Product getProduct() {

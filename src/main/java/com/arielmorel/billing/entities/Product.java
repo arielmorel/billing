@@ -44,12 +44,8 @@ public class Product implements Serializable {
     private Date createdAt;
     @Column(name = "is_active")
     private Boolean isActive;
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    @ManyToOne
-    private Category categoryId;
 
     public Product() {
-        this.stock=1;
     }
 
     @PrePersist
@@ -140,20 +136,6 @@ public class Product implements Serializable {
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
-
-    /**
-	 * @return the categoryId
-	 */
-	public Category getCategoryId() {
-		return categoryId;
-	}
-
-	/**
-	 * @param categoryId the categoryId to set
-	 */
-	public void setCategoryId(Category categoryId) {
-		this.categoryId = categoryId;
-	}
 
 
     public Boolean getActive() {

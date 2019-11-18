@@ -42,7 +42,7 @@ public class Customer implements Serializable {
     private String email;
 
     @OneToMany(mappedBy ="customer" ,fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = false)
-    private List<Invoice> invoices;
+    private List<Order> orders;
 
 
     @Column(name = "created_at")

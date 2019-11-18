@@ -2,15 +2,14 @@ package com.arielmorel.billing;
 
 
 import com.arielmorel.billing.entities.Customer;
-import com.arielmorel.billing.entities.Invoice;
-import com.arielmorel.billing.entities.InvoiceDetail;
+import com.arielmorel.billing.entities.Order;
+import com.arielmorel.billing.entities.OrderDetail;
 import com.arielmorel.billing.entities.Product;
 import com.arielmorel.billing.repositories.CustomerRepository;
-import com.arielmorel.billing.repositories.InvoiceDetailRepository;
-import com.arielmorel.billing.repositories.InvoiceRepository;
+import com.arielmorel.billing.repositories.OrderDetailRepository;
+import com.arielmorel.billing.repositories.OrderRepository;
 import com.arielmorel.billing.repositories.ProductRepository;
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
@@ -38,9 +37,9 @@ import java.util.logging.Logger;
 class BillingApplicationTests {
 
 	@Autowired
-	private InvoiceDetailRepository invoiceDetailRepository;
+	private OrderDetailRepository orderDetailRepository;
 	@Autowired
-	private InvoiceRepository invoiceRepository;
+	private OrderRepository orderRepository;
 	@Autowired
 	private CustomerRepository customerRepository;
 	@Autowired
@@ -56,7 +55,7 @@ class BillingApplicationTests {
 	}
 
 	@Test
-	@Order(1)
+	@org.junit.jupiter.api.Order(1)
 	public void createProduct(){
 		Product product=new Product();
 		product.setName("DELL LATITUDE 5480");
@@ -71,7 +70,7 @@ class BillingApplicationTests {
 	}
 
 	@Test
-	@Order(2)
+	@org.junit.jupiter.api.Order(2)
 	public void updateProduct(){
 		Product product = productRepository.findById(1L).get();
 		if(product!=null){
@@ -85,14 +84,14 @@ class BillingApplicationTests {
 	}
 
 	@Test
-	@Order(3)
+	@org.junit.jupiter.api.Order(3)
 	public void findAllProducts(){
 		List<Product> all = productRepository.findAll();
 		assertThat(all.size(), is(1));
 	}
 
 	@Test
-	@Order(4)
+	@org.junit.jupiter.api.Order(4)
 	public void createCustomer(){
 		//	Customer
 		Customer customer=new Customer();
@@ -105,7 +104,7 @@ class BillingApplicationTests {
 	}
 
 	@Test
-	@Order(5)
+	@org.junit.jupiter.api.Order(5)
 	public void findCustomer(){
 		//	Customer
 		Customer customer=new Customer();
@@ -119,38 +118,38 @@ class BillingApplicationTests {
 
 
 	@Test
-	@Order(6)
+	@org.junit.jupiter.api.Order(6)
 	public void createOrder(){
-		//		Invoice
+		//		Order
 		System.out.println("customer: "+localCustomer);
-		Invoice invoice =new Invoice();
-		invoice.setCustomer(localCustomer);
-		invoice.setCreatedAt(new Date());
-		Invoice invoiceSaved = invoiceRepository.save(invoice);
+		Order order =new Order();
+		order.setCustomer(localCustomer);
+		order.setCreatedAt(new Date());
+		Order orderSaved = orderRepository.save(order);
 		log.info("Order created correctly");
 
-		//		Invoice detail 1
-		InvoiceDetail detail=new InvoiceDetail();
+		//		Order detail 1
+		OrderDetail detail=new OrderDetail();
 		detail.setProduct(product1);
 		detail.setUnit(1);
 		detail.setPrice(700f);
-		detail.setInvoice(invoiceSaved);
+		detail.setOrder(orderSaved);
 
-		//		Invoice detail 2
-		InvoiceDetail detail2=new InvoiceDetail();
+		//		Order detail 2
+		OrderDetail detail2=new OrderDetail();
 		detail.setProduct(product2);
 		detail.setUnit(1);
 		detail.setPrice(900f);
-		detail.setInvoice(invoiceSaved);
+		detail.setOrder(orderSaved);
 
-//		InvoiceDetail invoiceDetailCreate = invoiceDetailRepository.save(detail);
+//		OrderDetail invoiceDetailCreate = orderDetailRepository.save(detail);
 //		Assert.notNull(invoiceDetailCreate);
 	}
 
 	@Test
-	@Order(7)
+	@org.junit.jupiter.api.Order(7)
 	public void findAllOder(){
-		List<Invoice> all = invoiceRepository.findAll();
+		List<Order> all = orderRepository.findAll();
 		assertThat(all, hasSize(1));
 		System.out.println(all);
 	}
