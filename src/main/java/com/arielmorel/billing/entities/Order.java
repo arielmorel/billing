@@ -14,8 +14,8 @@ import java.util.List;
  *
  */
 @Entity
-@Table(name = "order_table")
-public class Order implements Serializable {
+
+public class OrderEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -25,9 +25,9 @@ public class Order implements Serializable {
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
-    @Transient
-    @OneToMany(fetch=FetchType.LAZY ,cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_detail_id")
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_entity_id")
     private List<OrderDetail> orderDetailList;
 
     @Column(name="warranty")
@@ -44,14 +44,12 @@ public class Order implements Serializable {
     private Date createdAt;
 
 
-    public Order() {
-
+    public OrderEntity() {
         orderDetailList =new ArrayList<>();
     }
 
     @PrePersist
     private void prePersist(){
-
         createdAt=new Date();
     }
     public Long getId() {
@@ -94,9 +92,15 @@ public class Order implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public void addItemInvoice(OrderDetail item) {
+    public void addItem(OrderDetail item) {
         this.orderDetailList.add(item);
     }
+
+
+    public List<OrderDetail> getOrderDetailList() {
+        return orderDetailList;
+    }
+
 
     public Double getTotal(){
         double total=0D;
