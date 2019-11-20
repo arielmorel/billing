@@ -19,8 +19,8 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public Order placeOrder(Order order) {
-        if(order!=null) {
-            return repository.save(order);
+        if(order !=null) {
+          return repository.save(order);
         }
         return null;
     }

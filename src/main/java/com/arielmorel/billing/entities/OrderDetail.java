@@ -1,5 +1,7 @@
 package com.arielmorel.billing.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,11 +18,11 @@ public class OrderDetail implements Serializable {
     @Basic(optional = false)
     @Column(name = "id", nullable = false)
     private Long id;
-
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JsonIgnore
+    @JoinColumn( name = "order_table_id", referencedColumnName = "id")
     @ManyToOne
     private Order order;
-
+    @JsonIgnore
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne
     private Product product;

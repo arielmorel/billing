@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.arielmorel.billing.entities;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,15 +31,13 @@ public class Customer implements Serializable {
     private String company;
     @Column(name = "address", length = 50)
     private String address;
-    @Column(name = "cell_phone", length = 50)
-    private String cellPhone;
     @Column(name = "phone", length = 50)
     private String phone;
     @Column(name = "email", length = 50)
     private String email;
 
     @OneToMany(mappedBy ="customer" ,fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = false)
-    private List<Order> orders;
+    private List<Order> orderEntities;
 
 
     @Column(name = "created_at")
@@ -108,20 +103,6 @@ public class Customer implements Serializable {
 	 */
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	/**
-	 * @return the cellPhone
-	 */
-	public String getCellPhone() {
-		return cellPhone;
-	}
-
-	/**
-	 * @param cellPhone the cellPhone to set
-	 */
-	public void setCellPhone(String cellPhone) {
-		this.cellPhone = cellPhone;
 	}
 
 	/**

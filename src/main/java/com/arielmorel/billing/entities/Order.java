@@ -1,6 +1,7 @@
 
 package com.arielmorel.billing.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -13,9 +14,9 @@ import java.util.List;
  * @author Ariel Morel
  *
  */
-@Entity
-
-public class OrderEntity implements Serializable {
+@Entity(name = "order_table")
+@Table(name = "order_table")
+public class Order implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -26,8 +27,8 @@ public class OrderEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_entity_id")
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_table_id")
     private List<OrderDetail> orderDetailList;
 
     @Column(name="warranty")
@@ -43,13 +44,13 @@ public class OrderEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-
-    public OrderEntity() {
+    public Order() {
         orderDetailList =new ArrayList<>();
     }
 
     @PrePersist
     private void prePersist(){
+
         createdAt=new Date();
     }
     public Long getId() {
@@ -101,7 +102,7 @@ public class OrderEntity implements Serializable {
         return orderDetailList;
     }
 
-
+    @JsonIgnore
     public Double getTotal(){
         double total=0D;
         for (OrderDetail detail: orderDetailList) {

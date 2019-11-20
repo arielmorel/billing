@@ -31,9 +31,9 @@ public class Product implements Serializable {
     @Column(name = "stock")
     private int stock;
     @Column(name = "price_in")
-    private Integer priceIn;
+    private Double priceIn;
     @Column(name = "price_out")
-    private Integer priceOut;
+    private Double priceOut;
 
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -102,19 +102,19 @@ public class Product implements Serializable {
         this.stock = stock;
     }
 
-    public Integer getPriceIn() {
+    public Double getPriceIn() {
         return priceIn;
     }
 
-    public void setPriceIn(Integer priceIn) {
+    public void setPriceIn(Double priceIn) {
         this.priceIn = priceIn;
     }
 
-    public Integer getPriceOut() {
+    public Double getPriceOut() {
         return priceOut;
     }
 
-    public void setPriceOut(Integer priceOut) {
+    public void setPriceOut(Double priceOut) {
         this.priceOut = priceOut;
     }
 
